@@ -21,4 +21,4 @@ Obs: O projeto está configurado por padrão para rodar na porta 80.
         `config/config.php`
 
     - Altere todos os dados referentes à connection string.
-    - Após isso, pare o postgres no docker e confirme que o apontamento já está para o seu banco no RDS.
+    - Após isso, pare o postgres no docker e confirme que o apontamento já está para o seu banco no RDS.# projeto_next_cloud_dev
