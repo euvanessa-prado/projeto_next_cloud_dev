@@ -2,26 +2,25 @@ services:
   nc:
     image: nextcloud:apache
     environment:
-      - POSTGRES_HOST=db
-      - POSTGRES_PASSWORD=nextcloud
-      - POSTGRES_DB=nextcloud
-      - POSTGRES_USER=nextcloud
+      # Configurações para RDS - substitua pelos valores do seu RDS
+      - POSTGRES_HOST=${RDS_ENDPOINT}
+      - POSTGRES_PASSWORD=${RDS_PASSWORD}
+      - POSTGRES_DB=${RDS_DATABASE}
+      - POSTGRES_USER=${RDS_USERNAME}
+      - POSTGRES_PORT=${RDS_PORT:-5432}
     ports:
       - 80:80
     restart: always
     volumes:
+      # Opção 1: Volume local (atual)
       - nc_data:/var/www/html
-  db:
-    image: postgres:alpine
-    environment:
-      - POSTGRES_PASSWORD=nextcloud
-      - POSTGRES_DB=nextcloud
-      - POSTGRES_USER=nextcloud
-    restart: always
-    volumes:
-      - db_data:/var/lib/postgresql/data
-    expose:
-      - 5432
+      
+      # Opção 2: Amazon EFS (descomente para usar)
+      # - type: nfs
+      #   source: ${EFS_DNS_NAME}.efs.${AWS_REGION}.amazonaws.com:/
+      #   target: /var/www/html
+      #   volume:
+      #     nocopy: true
+    # Dependências removidas pois não há mais serviço de banco local
 volumes:
-  db_data:
   nc_data:
