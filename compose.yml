@@ -1,9 +1,10 @@
 services:
+  nextcloud:
     image: nextcloud:apache
     environment:
       # Configurações para RDS - substitua pelos valores do seu RDS
       - POSTGRES_HOST=nextcloud.c29gca8kizzb.us-east-1.rds.amazonaws.com
-      - POSTGRES_PASSWORD=Xyu2QG6rKViMsGRe9OQB
+      - POSTGRES_PASSWORD=k3dCcZE7ybObAgXOgjBO
       - POSTGRES_DB=nextcloud
       - POSTGRES_USER=nextcloud
       - POSTGRES_PORT=5432
@@ -14,6 +15,5 @@ services:
       # Opção 1: Volume local (atual)
       - nc_data:/var/www/html
 
-      # Opção 2: Amazon EFS (descomente para usar)
-      # - type: nfs
-      #   source: ${EFS_DNS_NAME}.efs.${AWS_REGION}.amazonaws.com:/
+volumes:
+  nc_data:
